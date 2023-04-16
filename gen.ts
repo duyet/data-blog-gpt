@@ -54,6 +54,16 @@ async function readDir(currentPath: string) {
   return files;
 }
 
+// Make dir
+async function makeDir(path: string) {
+  try {
+    await Deno.mkdir(path);
+    console.log(`Created folder: ${path}`);
+  } catch {
+    console.log(`Folder existed: ${path}`);
+  }
+}
+
 // Generate content
 async function generateContent(existedFiles: string[]) {
   const openAI = new OpenAI(OPENAI_API_KEY);
@@ -114,12 +124,7 @@ async function writeContent(content: string) {
 
     // Create category folder if not existed
     const categoryPath = `./pages/${category}`;
-    try {
-      await Deno.mkdir(categoryPath);
-      console.log(`Created category folder: ${categoryPath}`);
-    } catch {
-      console.log(`Category folder existed: ${categoryPath}`);
-    }
+    await makeDir(categoryPath);
 
     category = `${category}/`;
   }
@@ -135,7 +140,7 @@ async function writeContent(content: string) {
 
 async function writeGithubEnv(key: string, value: string) {
   const GITHUB_ENV = Deno.env.get("GITHUB_ENV");
-  await Deno.writeTextFile(GITHUB_ENV, `${key}=${value}`);
+  await Deno.writeTextFile(GITHUB_ENV, `${key}=${value}\n`);
 }
 
 function getDefaultTopics(): string[] {
