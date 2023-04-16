@@ -106,7 +106,7 @@ async function generateContent(existedFiles: string[]) {
 // Write content to file
 async function writeContent(content: string) {
   // Post title
-  const title = content.split("\n")[0].replace("#", "").trim();
+  const title = content.split("\n")[0].replace(/#/g, "").trim();
   console.log(`Title: ${title}`);
 
   // Post slug
