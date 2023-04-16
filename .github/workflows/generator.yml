@@ -1,0 +1,40 @@
+# This workflow will install Deno then run `deno run --allow-all ./gen.ts`
+
+name: Content Generator
+
+on:
+  push:
+    branches: ['master']
+  issue_comment:
+    types: [created]
+  schedule:
+    - cron: '0 * * * *' # @hourly
+
+permissions:
+  contents: write
+
+env:
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v3
+
+      - name: Setup Deno
+        # uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@9db7f66e8e16b5699a514448ce994936c63f0d54
+        with:
+          deno-version: v1.x
+
+      - name: Verify formatting
+        run: deno fmt --check ./gen.ts
+
+      - name: Run linter
+        run: deno lint ./gen.ts
+
+      - name: Generator
+        run: deno run --allow-all ./gen.ts
