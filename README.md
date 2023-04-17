@@ -18,3 +18,12 @@ The Data Engineering Blog by GPT-3 utilizes Github Actions and Deno script to ge
 3. **Markdown Content**: The generated content is received from the GPT-3 API and formatted as Markdown. The content may include headings, paragraphs, bullet points, and other Markdown syntax elements, making it suitable for rendering as a blog post.
 
 4. **Auto Commit and Push**: The Deno script automatically creates a new .mdx file with the generated content, commits it to the master branch, and pushes the changes back to the repository. This triggers to deploy to Vercel.
+
+## Deploy to Vercel
+
+You can start by creating your own site and deploying to Vercel by clicking the link:
+
+<a className="inline-flex mt-3" target="_blank" href="https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fduyet%2Fdata-blog-gpt&showOptionalTeamCreation=false">![](https://vercel.com/button)</a>
+
+##
+
