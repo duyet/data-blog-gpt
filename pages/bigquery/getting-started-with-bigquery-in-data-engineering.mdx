@@ -1,0 +1,117 @@
+---
+date: 2023-04-17T11:05:06.826Z
+category: BigQuery
+model: gpt-3.5-turbo-0301
+usage: {"prompt_tokens":684,"completion_tokens":977,"total_tokens":1661}
+created: 1681729439
+id: chatcmpl-76GwJrHa1cJhu9B9Vszj8LMURYorf
+---
+
+# Getting Started with BigQuery in Data Engineering
+
+As a Data Engineer, it is essential to have a robust understanding of various tools and technologies at your disposal. One such tool that has gained a lot of popularity in the recent past is BigQuery — a cloud-based data warehousing and querying solution by Google. In this article, we will explore BigQuery in detail and demonstrate how it works in real-world scenarios.
+
+## What is BigQuery?
+
+At its core, BigQuery is a fully-managed, scalable, and cloud-based data warehousing solution that lets you store and query massive volumes of data. BigQuery uses the power of Google's infrastructure to perform lightning-fast queries even on terabytes of data. Additionally, BigQuery integrates with various Google Cloud services like Google Cloud Storage, Google Cloud Dataflow, and Google Cloud Dataproc, making it a compelling tool for data engineering pipelines.
+
+## Getting Started with BigQuery
+
+Before jumping into creating a data warehouse, we have to set up a GCP account and enabling the BigQuery API to interact. Then we can use Google Cloud Console to verify everything is set up and ready to work. Once it's done, we can use BigQuery user interface or APIs to interact.
+
+### BigQuery Interface
+
+The BigQuery user interface is a web-based application that allows us to interact with BigQuery.
+- Write and run SQL queries.
+- Import and export tables from/to Google Cloud Storage.
+- Create and Maintain Datasets and Tables.
+
+### BigQuery APIs
+
+BigQuery APIs provide programmatic access for BigQuery services. The following are the available APIs based on the usage scenarios:
+- BigQuery REST API
+- BigQuery Storage API
+- BigQuery ML API
+- BigQuery Data Transfer API
+
+## BigQuery in Data Engineering Pipelines
+
+BigQuery is a popular tool in data engineering pipelines, thanks to its scalability and high-performance nature. Below is a sample pipeline demonstrating how BigQuery fits into your data engineering pipeline.
+
+### Data Ingestion
+
+To feed data into BigQuery, there are a few popular services you can use:
+- Google Cloud Dataflow
+- Google Cloud Dataproc
+- Google Cloud Functions
+- Apache Beam.
+
+#### Example using Apache Beam
+
+```python
+import apache_beam as beam
+from apache_beam.options.pipeline_options import PipelineOptions
+
+pipeline_options = PipelineOptions.from_dictionary({
+    'runner': 'DirectRunner', # use DirectRunner for test on Local Machine
+    'project': 'my-gcp-project',
+    'region': 'us-east4',
+})
+p = beam.Pipeline(options=pipeline_options)
+
+# read data from file
+lines = (p | 'Read From PubSub' >> beam.io.ReadFromPubSub(
+    topic='mytopic',
+    with_attributes=True
+))
+
+def transform(line):
+    # extract message from line
+    message_data = line['message']['data']
+    message_str = base64.b64decode(message_data).decode('utf-8')
+    
+    # do some other transformation
+    transformed_data = {
+        'id': 1,
+        'name': 'Alice',
+        'city': 'New York'
+    }
+    
+    # return new record
+    return transformed_data
+
+# Transform each record in lines
+records = (lines | 'Transform Data' >> beam.Map(transform))
+
+# Write to BigQuery
+records | 'Write To BigQuery' >> beam.io.WriteToBigQuery(
+    table='mydataset.mytable',
+    project='my-gcp-project',
+    schema='id:INTEGER,name:STRING,city:STRING',
+    create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
+    write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND,
+)
+
+result = p.run()
+result.wait_until_finish()
+```
+
+### Data Warehousing
+
+After ingesting data into BigQuery, we are ready to store it in one centralized location. In BigQuery, data is stored in tables, which are further organized within datasets. BigQuery is schemaless, which means we can store different types of data in the same table with different schemas.
+
+### Querying
+
+Once the data is loaded into BigQuery, we can query it using SQL. Below is an example query that retrieves data for users who have signed up in the past month:
+
+```sql
+SELECT * 
+FROM mydataset.mytable 
+WHERE created > DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)
+```
+
+## Conclusion
+
+In conclusion, BigQuery is a cloud-based data warehousing solution that can help Data Engineers store and query massive volumes of data. By leveraging the power of Google's infrastructure, BigQuery can perform lightning-fast queries even on terabytes of data. Additionally, BigQuery integrates with various other Google Cloud services, making it easy to build data engineering pipelines with BigQuery at the center. 
+
+Category: BigQuery
