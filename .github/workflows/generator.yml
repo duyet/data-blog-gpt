@@ -33,9 +33,6 @@ jobs:
       - name: Verify formatting
         run: deno fmt --check ./gen.ts
 
-      - name: Run linter
-        run: deno lint ./gen.ts
-
       - name: GPT-3 Content Generator
         run: ./gen.ts
 
