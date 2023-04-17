@@ -1,0 +1,46 @@
+---
+date: 2023-04-17T10:04:38.077Z
+category: HDFS
+model: gpt-3.5-turbo-0301
+usage: {"prompt_tokens":675,"completion_tokens":428,"total_tokens":1103}
+created: 1681725847
+id: chatcmpl-76G0NLW9gN4k7kc8NvmNIBRDEFxjh
+---
+
+# Understanding HDFS in Data Engineering
+
+In Data Engineering, HDFS (Hadoop Distributed File System) is one of the most important tools for storing and processing large amounts of data. It is a distributed file system designed to run on commodity hardware. HDFS provides high data throughput and fault-tolerance, which makes it ideal for data-intensive applications.
+
+## Architecture of HDFS
+
+HDFS is designed in a master-slave architecture. The master node is called the NameNode and the slave nodes are called DataNodes. The NameNode manages the file system namespace, blocks and metadata, and DataNodes store the actual data.
+
+The file is split into blocks and stored across several DataNodes in the cluster. The NameNode maps the file blocks to data blocks on the DataNodes. The client reads the files by communicating with the NameNode, which in turn communicates with DataNodes to retrieve the data. The replication feature of HDFS ensures that the data is replicated across several DataNodes, ensuring high availability and fault-tolerance.
+
+## Accessing HDFS
+
+HDFS can be accessed through several APIs including Java, REST, WebHDFS, and Hadoop Streaming. In this post, we'll look at how to access HDFS using Python.
+
+The Hadoop Python package provides a library to interact with HDFS using Python. You can install it using pip.
+
+```python
+!pip install hadoop
+```
+
+Once installed, you can use it to create, read, and update files in HDFS.
+
+```python
+from hadoop import HDFS
+
+hdfs = HDFS()
+hdfs.mkdir('/mydata')
+hdfs.put('localfile.txt', '/mydata/remotefile.txt')
+hdfs.get('/mydata/remotefile.txt', 'localfile.txt')
+hdfs.delete('/mydata/remotefile.txt')
+```
+
+## Conclusion
+
+HDFS is a powerful tool for storing and processing large amounts of data in a fault-tolerant and highly available manner. It is an essential component of the Hadoop ecosystem, and has become a standard data storage technology for data engineering.
+
+Category: HDFS
