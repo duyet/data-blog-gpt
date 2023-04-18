@@ -1,0 +1,76 @@
+---
+date: 2023-04-18T14:27:28.524Z
+category: Distributed System
+model: gpt-3.5-turbo-0301
+usage: {"prompt_tokens":791,"completion_tokens":990,"total_tokens":1781}
+created: 1681827977
+id: chatcmpl-76gZdVRV6ZhwLiZsQDkA3TQcF8Nnj
+---
+
+# Understanding Consensus Algorithms in Data Engineering
+
+Consensus algorithms are crucial in distributed systems such as data engineering. They help nodes in a cluster to agree on a single value or decision. For instance, consensus algorithms can help nodes in a cluster agree on which node should be the leader or which data should be replicated. In this article, we'll discuss fundamental knowledge of consensus algorithms, consensus algorithms in use, and examples of consensus algorithms.
+
+## Fundamental Knowledge of Consensus Algorithms
+
+Before delving into consensus algorithms, let’s define some terms:
+
+- **Consensus**: Agreement among a group of nodes in a distributed system.
+- **Node**: A computer connected to a network.
+- **Leader**: A node responsible for coordinating among other nodes in the cluster.
+- **Term**: A period during which a particular leader remains in power.
+- **Commit**: When the nodes in a cluster agree on a value or decision, we say that the value or decision has been committed.
+
+Consensus algorithms seek to ensure that all nodes in a cluster agree on a single value. There are two types of consensus algorithms:
+
+- **Crash-recovery**: This type of consensus algorithm assumes that nodes can fail, but they must restart before they can rejoin the cluster. Upon restarting, the crashed nodes must update their state before they can rejoin the cluster.
+- **Byzantine Fault Tolerance (BFT)**: This algorithm takes into account malicious nodes that may intentionally cause failures or act dishonestly. The algorithm assumes that a certain number of nodes in the cluster are malicious and tries to reach a consensus despite those nodes' actions.
+
+## Consensus Algorithm Use Cases
+
+Consensus algorithms are critical in distributed systems. In data engineering, we use consensus algorithms for the following:
+
+- **Leadership election**: Nodes in a cluster must choose a leader who will coordinate the nodes' activities. Consensus algorithms ensure that all nodes agree on a single leader.
+- **Replication**: When data is replicated, all nodes must agree on the updates for consistency. Consensus algorithms ensure that all nodes agree on updates and avoid conflicts.
+- **Atomic transactions**: Consensus algorithms ensure that transactions are committed as a whole. They provide transactional consistency, isolation, and durability.
+- **State machine replication**: Consensus algorithms ensure that all nodes apply the same command to a state machine to ensure consistency.
+
+## Examples of Consensus Algorithms
+
+Now that we understand consensus algorithms' fundamental knowledge and use cases let's discuss some examples.
+
+### Paxos
+
+Paxos is a crash-recovery consensus algorithm. It is used to ensure that a distributed system can tolerate the failure of some of its nodes without losing consistency. Paxos uses a two-phase commit process to achieve consensus among nodes.
+
+In the first phase (prepare phase), a node sends a prepare request to all other nodes in the cluster. Each node responds with the highest proposal number they have seen. If the node receives responses from more than half of the nodes in the cluster and it has the highest proposal number, it proceeds to the second phase.
+
+In the second phase (accept phase), the node sends an accept request to all other nodes in the cluster. If the node receives responses from more than half of the nodes in the cluster, it can commit the value.
+
+### Raft
+
+Raft is another crash-recovery consensus algorithm. It aims to provide a simpler way to understand consensus algorithms than Paxos. Raft has three roles:
+
+- **Leader**: The node responsible for managing the replication of data.
+- **Follower**: Nodes that replicate data.
+- **Candidate**: When a follower node wants to become a leader, it transitions into a candidate node.
+
+Raft uses two types of messages: AppendEntries and RequestVote. AppendEntries is used to replicate log entries, while RequestVote is used during leader election. When a leader fails, a new leader is elected.
+
+### Practical Byzantine Fault Tolerance (PBFT)
+
+PBFT is a BFT consensus algorithm that can tolerate up to one-third of the nodes' malicious behavior. PBFT has three phases:
+
+- **Pre-prepare**: A leader node sends a request to all nodes to prepare for a new operation.
+- **Prepare**: Nodes must validate the request before moving to the next phase.
+- **Commit**: The nodes commit the operation to the state and send a reply to the client.
+
+PBFT ensures that all nodes agree on the order of an operation in the state machine.
+
+## Conclusion
+
+Consensus algorithms ensure that all nodes in a distributed system agree on a single value or decision. In data engineering, we use consensus algorithms for leadership election, data replication, atomic transactions, state machine replication, and more.
+
+Paxos and Raft are crash-recovery consensus algorithms, while PBFT is a BFT consensus algorithm. As a data engineer, it is essential to understand consensus algorithms to build robust and reliable distributed systems.
+
+Category: Distributed System
