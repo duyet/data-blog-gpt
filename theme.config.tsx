@@ -27,6 +27,9 @@ const theme: DocsThemeConfig = {
   footer: {
     text: `© ${new Date().getFullYear()} Data Engineering Blog by GPT-3`,
   },
+  sidebar: {
+      defaultMenuCollapseLevel: 1
+    },
   gitTimestamp: ({ timestamp }) => (
     <span>Last updated: {timestamp.toString()}</span>
   ),
