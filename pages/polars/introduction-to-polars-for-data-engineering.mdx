@@ -1,0 +1,83 @@
+---
+date: 2023-04-18T01:31:27.566Z
+category: Polars
+model: gpt-3.5-turbo-0301
+usage: {"prompt_tokens":841,"completion_tokens":568,"total_tokens":1409}
+created: 1681781454
+id: chatcmpl-76UTGFnRo63OGZnOh0QQ15XQIHgS4
+---
+
+# Introduction to Polars for Data Engineering
+
+As a data engineer, you are likely familiar with tools like Pandas and Apache Spark for data manipulation and processing. Today, we will introduce another powerful tool in the data engineering space - Polars.
+
+Polars is a blazing fast data processing library for both CPU and GPU. It has a familiar Pandas-like API, but is built on Rust and optimized for performance. Polars is particularly useful for working with large datasets that cannot fit into memory, as it enables lazy evaluation of computations on big data files. 
+
+Here are some key features of Polars:
+
+- Blazing fast performance
+- Pandas-like API
+- Lazy evaluation of computations
+- Memory-efficient processing of large datasets
+- Built-in support for parallel processing and threading
+- Seamless integration with Python
+
+In this tutorial, we will walk through some examples of using Polars for common data engineering tasks.
+
+## Installation
+
+To install Polars, simply use pip:
+
+```
+pip install polars
+```
+
+## Loading Data
+
+Polars supports a variety of file formats, including CSV, Parquet, JSON, and more. Here, we will load a CSV file:
+
+```python
+import polars as pl
+
+df = pl.read_csv("data.csv")
+```
+
+## Manipulating Data
+
+Polars supports a wide range of data manipulation operations, similar to Pandas. Here are some examples:
+
+### Filtering Data
+
+```python
+filtered_df = df.filter(pl.col("age") > 30)
+```
+
+### Joining Data
+
+```python
+joined_df = df.join(other_df, "id")
+```
+
+### Aggregating Data
+
+```python
+aggregated_df = df.groupby("city").agg({"age": ["mean", "max"], "income": "sum"})
+```
+
+## Lazy Evaluation
+
+Polars enables lazy evaluation of computations, which enables processing of large datasets that could not fit into memory. Here's an example:
+
+```python
+lazy_df = pl.lazy.read_csv("data.csv")
+aggregated_df = lazy_df.groupby("city").agg({"age": ["mean", "max"], "income": "sum"})
+result = aggregated_df.fetch()
+```
+
+In this example, we use `pl.lazy.read_csv` to create a lazy DataFrame that does not load any data into memory. Then, we apply a groupby operation and aggregate functions, but these computations are not actually executed until `result = aggregated_df.fetch()` is called. 
+
+## Conclusion
+
+Polars is a powerful and performant tool for data engineering, with a familiar Pandas-like API and built-in support for lazy evaluation of computations. If you work with large datasets that cannot fit into memory and require fast processing, it may be worth exploring Polars as an alternative to Pandas or Apache Spark.
+
+Category: Polars
