@@ -1,3 +1,11 @@
 {
-  "index": "Welcome"
+  "index": "Welcome",
+  "data-engineering": "Data Engineering",
+  "database": "Database",
+  "dataops": "DataOps",
+  "distributed": "Distributed",
+  "frameworks": "Frameworks",
+  "languages": "Languages",
+  "data-visualization": "Data Visualization",
+  "algorithms": "Algorithms"
 }

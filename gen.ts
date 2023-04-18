@@ -7,11 +7,11 @@ import { slug } from "https://deno.land/x/slug/mod.ts";
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
 
 const TOPICS = Deno.env.get("TOPICS") || getDefaultTopics();
+const CATEGORIES = Deno.env.get("CATEGORIES") || getCategories();
 
 // Prompt for GPT-3 model
 const DEFAULT_PROMPT =
-  "Write a Data Engineering blog post as an expert with example code or data flow if possible, in valid Markdown (mdx) format, specific detail about " +
-  pickTopic();
+  `Write blog posts about Data Engineering in a very detailed of more than 1500 words in markdown (mdx) format about ${pickTopic()}. The content should have image or block code for example, do not include local image. The content can be something like fundamental knowledge to usage of tools. At the end of blog post, add a line about the category or the tool of that post must be in format "Category: [category]". The category should be in this list: ${CATEGORIES}. The content and title should not duplicated with the old contents: ${await getExistedFiles()}`;
 const PROMPT = Deno.env.get("PROMPT") || DEFAULT_PROMPT;
 
 const getHeader = ({ category, model, usage, created, id }) =>
@@ -33,15 +33,18 @@ async function main() {
     Deno.exit(1);
   }
 
-  const existedFiles = await readDir("./pages");
-  console.log("Existed files: ", existedFiles);
-
-  const { response, content } = await generateContent(existedFiles);
+  const { response, content } = await generateContent();
   const { title } = await writeContent(response, content);
 
   if (Deno.env.get("CI") === "true") {
     await writeGithubEnv("TITLE", title);
   }
+}
+
+async function getExistedFiles() {
+  const existedFiles = await readDir("./pages");
+  console.log("Existed files: ", existedFiles);
+  return existedFiles;
 }
 
 // Read dir recursively
@@ -69,7 +72,7 @@ async function makeDir(path: string) {
 }
 
 // Generate content
-async function generateContent(existedFiles: string[]) {
+async function generateContent() {
   const openAI = new OpenAI(OPENAI_API_KEY);
 
   console.log("Requesting OpenAI API to generate the content ...");
@@ -79,8 +82,7 @@ async function generateContent(existedFiles: string[]) {
     messages: [
       {
         role: "system",
-        content:
-          `You are a expect technical content writer. You are Data Engineer with 50 years of experience. You write blog posts in a very detailed of more than 1500 words in markdown (mdx) format. The content should have image or block code for example. The content can be something like fundamental knowledge to usage of tools. At the end of blog post, add a line about the category or the tool of that post must be in format "Category: [category]". If user do not mention about the topics, please pick a random of these and write about it: ${TOPICS}. The content should not duplicated with the old contents: ${existedFiles}`,
+        content: `You are an expect technical content writer.`,
       },
       {
         role: "user",
@@ -157,6 +159,19 @@ async function writeContent(response: Record<string, any>, content: string) {
 async function writeGithubEnv(key: string, value: string) {
   const GITHUB_ENV = Deno.env.get("GITHUB_ENV");
   await Deno.writeTextFile(GITHUB_ENV, `${key}=${value}\n`);
+}
+
+function getCategories(): string {
+  return [
+    "Data Engineering",
+    "Database",
+    "Distributed System",
+    "Data Visualization",
+    "DataOps",
+    "Language",
+    "Frameworks",
+    "Algorithms",
+  ].join(", ");
 }
 
 function getDefaultTopics(): string[] {
@@ -238,9 +253,12 @@ function getDefaultTopics(): string[] {
     "Modern Data Stack",
     "DuckDB",
     "Consensus Algorithms",
+    "Any Algorithms for Data Engineering",
     "Distributed Systems",
     "Storage",
     "Replication",
+    "Any tools for Data Engineering",
+    "Trending Data Engineering tools",
   ];
 }
 
