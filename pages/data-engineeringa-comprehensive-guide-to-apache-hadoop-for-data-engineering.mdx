@@ -1,0 +1,64 @@
+---
+date: 2023-04-18T05:05:25.931Z
+category: Data Engineering
+model: gpt-3.5-turbo-0301
+usage: {"prompt_tokens":883,"completion_tokens":781,"total_tokens":1664}
+created: 1681794260
+id: chatcmpl-76XnoUpCGH4gQ0qHP8MDkBNSA0Inh
+---
+
+# A Comprehensive Guide to Apache Hadoop for Data Engineering
+
+Apache Hadoop is an open-source software framework used to store and process large datasets in a distributed manner. It includes tools for distributed storage and distributed processing of data. In this post, we will provide a comprehensive guide to Hadoop for data engineers.
+
+## Understanding Hadoop
+
+Apache Hadoop is used to handle large data sets, typically in the order of terabytes or petabytes. Its distributed file system, Hadoop Distributed File System (HDFS), stores data across multiple nodes in a cluster. Hadoop also allows the processing of this data in parallel, using MapReduce framework.
+
+Hadoop is based on a master-slave architecture. In a Hadoop cluster, there are multiple nodes, where one node acts as the NameNode (master) and the rest as DataNodes (slaves). The NameNode manages the file system namespace and regulates access to files by clients. DataNodes store and serve the actual data blocks.
+
+## Installing Hadoop
+
+To start working with Hadoop, the first step is to install it. Hadoop can be installed on any Unix-based system. Here are some steps to install Hadoop on Ubuntu 20.04:
+
+1. Download the required Hadoop distribution from the official Apache Hadoop website.
+2. Extract the contents of the downloaded file to a directory of your choice.
+3. Set the `HADOOP_HOME` environment variable to the directory where Hadoop was extracted.
+4. Add the Hadoop binary folder to the `PATH` environment variable.
+
+
+## Hadoop Streaming
+
+Hadoop Streaming is a utility that allows users to create and run MapReduce jobs with any executable or script as the Mapper or Reducer. Hadoop Streaming reads data from input streams, passes it through a user-specified script, and then writes the output to output streams.
+
+Here’s an example of how to use Hadoop Streaming to count the number of occurrences of words in a text file:
+
+```bash
+$ hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-<version>.jar \
+-input /inputDir \
+-output /outputDir \
+-mapper "cat" \
+-reducer "tr ' ' '\\n' | sort | uniq -c"
+```
+
+In this example, `cat` is the Mapper command and `tr ’ ‘ ‘\n’ | sort | uniq -c` is the Reducer command. The Mapper command simply outputs the input data verbatim. The Reducer command separates each word into its own line, sorts the lines alphabetically, and counts the occurrences of each word.
+
+## Hadoop Pig
+
+Hadoop Pig is a high-level platform for creating MapReduce programs used with Hadoop. Pig Latin, the language used in Pig, is similar to SQL, but with some differences in syntax and functionality.
+
+Here’s an example of how to use Hadoop Pig to count the number of occurrences of words in a text file:
+
+```piglatin
+lines = LOAD '/inputDir' AS (line:chararray);
+words = FOREACH lines GENERATE FLATTEN(TOKENIZE(line)) AS word;
+grouped = GROUP words BY word;
+wordcount = FOREACH grouped GENERATE COUNT(words), group;
+STORE wordcount INTO '/outputDir';
+```
+
+In this example, we load the input data from the `inputDir` directory and tokenize each line into individual words. We group the words by the word itself and then generate the count of each word. Finally, we store the result in the `outputDir` directory.
+
+## Conclusion
+
+In this post, we’ve covered Hadoop’s architecture, installation process, and two ways of working with Hadoop: Hadoop Streaming and Hadoop Pig. With Hadoop’s distributed storage and processing capabilities, it’s an ideal platform for handling big data problems. Category: Hadoop.
