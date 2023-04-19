@@ -1,0 +1,60 @@
+---
+date: 2023-04-19T19:04:12.818Z
+category: Distributed System
+model: gpt-3.5-turbo-0301
+usage: {"prompt_tokens":1075,"completion_tokens":1034,"total_tokens":2109}
+created: 1681931022
+id: chatcmpl-777NeCp6rFVSW88yRm6nn94rPVquP
+---
+
+# Introduction to Hadoop for Data Engineering
+
+![Hadoop Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Hadoop_logo.svg/1280px-Hadoop_logo.svg.png)
+
+Data is growing at an unprecedented rate, and traditional systems are struggling to keep up with it. To manage this growing data, new technologies have emerged, and Hadoop is one of the most popular technologies today. Hadoop is an open-source framework that allows distributed processing of large datasets across clusters of computers using simple programming models. It is widely used for big data storage, processing, and analysis. In this blog post, we will explore what Hadoop is, its components, and how it works.
+
+## What is Apache Hadoop?
+
+Hadoop was developed by Doug Cutting and Mike Cafarella in 2006, and it is a part of the Apache project managed by the Apache Software Foundation. Hadoop is an open-source distributed computing framework used for storing and processing big data. It is designed to store and process large datasets across a cluster of machines, using simple programming models. Hadoop has two main components: the Hadoop Distributed File System (HDFS) and MapReduce. Hadoop allows developers to write complex MapReduce programs that can process large datasets in parallel across a large number of nodes.
+
+## Hadoop Components
+
+As mentioned before, Hadoop consists of two major components: the Hadoop Distributed File System (HDFS) and MapReduce. Let's dive into each component in more detail.
+
+### Hadoop Distributed File System (HDFS)
+
+![HDFS Architecture](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/images/hdfsarchitecture.png)
+
+HDFS is a distributed file system designed to store large data sets reliably and fault-tolerantly. It is modeled after the Google File System (GFS) and provides scalable and fault-tolerant storage for big data. HDFS is designed to store data across a large number of machines and to provide transparent access to the data for applications. The data is split into blocks and distributed across the nodes in the cluster. Each block is replicated across multiple nodes to provide reliability and fault tolerance. HDFS also provides data locality, which means that the MapReduce tasks are executed on the node where the data is located, reducing network traffic and improving performance.
+
+### MapReduce
+
+MapReduce is a programming model for processing large data sets in a distributed and parallel manner. It is inspired by the map and reduce functions in functional programming. MapReduce is a parallel processing model that breaks down large datasets into smaller, more manageable ones, and then processes them in parallel across a large number of nodes. Each node performs a Map operation, which takes the input data and converts it into a key/value pair. The results are then sorted and shuffled across nodes to group together all the values for each key. Finally, a Reduce operation is performed on each group of values to produce the final output. MapReduce is highly scalable, fault-tolerant, and can be used to process and analyze large data sets.
+
+### Other Hadoop Components
+
+Hadoop also includes several other components, such as Hadoop Common, YARN, and Hive, which we'll briefly describe below.
+
+- Hadoop Common: This module contains all the common libraries and utilities required by other Hadoop modules.
+- YARN: YARN is a resource manager that manages the resources in a Hadoop cluster and schedules the jobs for MapReduce.
+- Hive: Hive is a data warehousing and SQL-like querying tool that is built on top of Hadoop.
+
+## How Hadoop Works?
+
+![Hadoop Workflow](https://www.edureka.co/blog/wp-content/uploads/2017/12/Hadoop-Applications-728x410.png)
+
+Hadoop works by splitting the data into small chunks and then processing it in parallel across a cluster of nodes. The process is broken down into multiple stages, as shown in the figure above.
+
+1. Data is first ingested into the Hadoop Distributed File System (HDFS).
+2. The MapReduce job is submitted to the YARN resource manager.
+3. The data is split into small chunks and sent to the nodes in the cluster.
+4. The Map function is applied to each data record, generating intermediate key-value pairs.
+5. The intermediate key-value pairs are sorted and shuffled to group together all the values for each key.
+6. The Reduce function is applied to the groups of values for each key, producing the final output.
+7. The output is stored in HDFS.
+
+## Conclusion
+
+In conclusion, Hadoop is a distributed computing framework used for storing and processing large data sets. It consists of two main components, HDFS and MapReduce, and several other components, such as Hadoop Common, YARN, and Hive. Hadoop works by splitting the data into small chunks and processing it in parallel across a cluster of nodes. Hadoop has become an essential tool for managing big data and is widely used across various industries. With Hadoop, data engineers can store, process, and analyze large data sets efficiently.
+
+Category: Distributed System
