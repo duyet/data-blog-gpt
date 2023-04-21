@@ -11,7 +11,7 @@ const CATEGORIES = Deno.env.get("CATEGORIES") || getCategories();
 
 // Prompt for GPT-3 model
 const DEFAULT_PROMPT =
-  `Write blog posts about Data Engineering in a very detailed of more than 1500 words in markdown (mdx) format about ${pickTopic()}. The content should have image or block code for example, do not include local image. The content can be something like fundamental knowledge to usage of tools. At the end of blog post, add a line about the category or the tool of that post must be in format "Category: [category]". The category should be in this list: ${CATEGORIES}. The content and title should not duplicated with the old contents: ${await getExistedFiles()}`;
+  `Write blog posts about Data Engineering in a very detailed of more than 1500 words in markdown (mdx) format about ${pickTopic()}. The content should have image or block code for example, do not include local image. The content can be something like fundamental knowledge to usage of tools. At the end of blog post, add a line about the category or the tool of that post must be in format "Category: [category]". The category should be in this list: ${CATEGORIES}. The content and Title should be short and must not be duplicated with the old contents: ${await getExistedFiles()}`;
 const PROMPT = Deno.env.get("PROMPT") || DEFAULT_PROMPT;
 
 const getHeader = ({ category, model, usage, created, id }) =>
