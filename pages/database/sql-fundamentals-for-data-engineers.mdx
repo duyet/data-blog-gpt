@@ -1,0 +1,153 @@
+---
+date: 2023-04-22T08:05:48.008Z
+category: Database
+model: gpt-3.5-turbo-0301
+usage: {"prompt_tokens":1513,"completion_tokens":1211,"total_tokens":2724}
+created: 1682150661
+id: chatcmpl-782WD34D2mWy1OHaw4F8KMpwb375W
+---
+
+# SQL Fundamentals for Data Engineers
+
+Structured Query Language, or SQL for short, is a language used for managing and manipulating data in relational databases. As a data engineer, it is essential to have a strong understanding of SQL fundamentals to effectively work with databases.
+
+In this article, we’ll cover the basics of SQL and its core features, including:
+
+- What is SQL?
+- Why use SQL?
+- Basic SQL query syntax
+- SQL data types
+- SQL functions
+- Joining tables
+- Subqueries
+- Indexes
+
+ 
+
+## What is SQL?
+
+SQL is a domain-specific language used to manage and manipulate relational databases. It was first developed by IBM in the 1970s and has since become the standard language used in most relational database management systems (RDBMS), including Oracle, MySQL, and PostgreSQL.
+
+## Why use SQL?
+
+SQL has become the standard language for querying and managing large data sets because of its simplicity, efficiency, and flexibility. It allows users to retrieve data from one or more tables, update or delete records, and insert new data. Additionally, SQL is easy to learn, with commands that are simple and straightforward.
+
+## Basic SQL Query Syntax
+
+Let's start by looking at the basic structure of an SQL query.
+
+```sql
+SELECT column1, column2, …
+FROM table_name
+WHERE condition;
+```
+
+The `SELECT` statement is used to retrieve data from one or more tables. The columns you want to retrieve are listed after the `SELECT` keyword. You can also use the `*` wildcard to select all columns.
+
+The `FROM` statement specifies the table or tables from which you want to retrieve data.
+
+The `WHERE` statement is used to filter the data. You can use various operators such as `=`, `<`, `>`, `<>`, `LIKE` and `BETWEEN` to create a condition.
+
+Here is an example of a basic SQL query:
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > 50000;
+```
+
+This query returns all columns of the `employees` table where the `salary` is greater than 50000.
+
+## SQL Data Types
+
+SQL supports various data types to store different kinds of data. Some common data types are:
+
+- `INTEGER` – whole numbers
+- `DECIMAL` – decimal numbers
+- `CHAR` – fixed-length strings
+- `VARCHAR` – variable-length strings
+- `BOOLEAN` – true/false values
+- `DATE` – date values
+- `TIME` – time values
+
+The specific data types supported may vary depending on the database management system being used.
+
+## SQL Functions
+
+Functions are used to perform calculations on data or modify the format of a column value. Some common SQL functions are:
+
+- `COUNT()` – counts the number of rows
+- `MAX()` – returns the maximum value in a column
+- `MIN()` – returns the minimum value in a column
+- `AVG()` – returns the average of a column
+- `SUM()` – returns the sum of values in a column
+
+Here is an example of using the `COUNT` function to count the number of employees:
+
+```sql
+SELECT COUNT(*)
+FROM employees;
+```
+
+This statement returns the total number of rows in the `employees` table.
+
+## Joining Tables
+
+In relational databases, data is often stored in multiple tables. To retrieve data from multiple tables in SQL, you need to use a join. A join combines rows from two or more tables based on a related column between them.
+
+The most common types of joins in SQL are:
+
+- INNER JOIN – returns only the rows where there is a match between the joined tables
+- LEFT JOIN – returns all the rows from the left table and the matched rows from the right table
+- RIGHT JOIN – returns all the rows from the right table and the matched rows from the left table
+- FULL OUTER JOIN – returns all the rows from both tables, with NULL values for non-matching rows
+
+Here is an example of an inner join between the `employees` and `departments` tables:
+
+```sql
+SELECT employees.name, departments.department_name
+FROM employees
+INNER JOIN departments
+ON employees.department_id = departments.department_id;
+```
+
+This statement returns the name of each employee and their corresponding department name.
+
+## Subqueries
+
+A subquery is a query that is contained within another query. It is used to retrieve data needed for the main query. A subquery is enclosed in parentheses and can be used in the `FROM`, `WHERE`, or `SELECT` clauses.
+
+Here is an example of a subquery in the `WHERE` clause that returns all employees who work in the same department as John Smith:
+
+```sql
+SELECT name
+FROM employees
+WHERE department_id = (
+  SELECT department_id
+  FROM employees
+  WHERE name = 'John Smith'
+);
+```
+
+This statement returns the names of all employees who work in the same department as John Smith.
+
+## Indexes
+
+Indexes are used to speed up database queries by providing a quick way to look up data. They are created on columns that are frequently used in query conditions or join clauses.
+
+An index is similar to the index of a book – it provides a way to quickly locate specific information without having to read the entire book.
+
+Here is an example of creating an index on the `department_id` column in the `employees` table:
+
+```sql
+CREATE INDEX idx_department_id
+ON employees (department_id);
+```
+
+This statement creates an index named `idx_department_id` on the `department_id` column in the `employees` table.
+
+## Conclusion
+
+SQL is a powerful language used to manage and manipulate data in relational databases. As a data engineer, it is essential to have a strong understanding of SQL fundamentals to work efficiently with databases. In this article, we covered the basics of SQL and its core features, including basic query syntax, data types, functions, joining tables, subqueries, and indexes.
+
+Category: Database
