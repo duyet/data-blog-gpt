@@ -1,153 +1,141 @@
 ---
-date: 2023-04-22T08:05:48.008Z
+date: 2023-04-29T13:04:30.245Z
 category: Database
 model: gpt-3.5-turbo-0301
-usage: {"prompt_tokens":1513,"completion_tokens":1211,"total_tokens":2724}
-created: 1682150661
-id: chatcmpl-782WD34D2mWy1OHaw4F8KMpwb375W
+usage: {"prompt_tokens":2442,"completion_tokens":1195,"total_tokens":3637}
+created: 1682773440
+id: chatcmpl-7AeX2R8NB9jTpdztBrBdv71Hl9CAM
 ---
 
 # SQL Fundamentals for Data Engineers
 
-Structured Query Language, or SQL for short, is a language used for managing and manipulating data in relational databases. As a data engineer, it is essential to have a strong understanding of SQL fundamentals to effectively work with databases.
+Structured Query Language (SQL) is a programming language used to manage and manipulate data in the relational database management systems (RDBMS). SQL has become a de facto standard for data management due to its simplicity, versatility, and scalability. In this blog post, we will explore the fundamentals of SQL and its usage in data engineering.
 
-In this article, we’ll cover the basics of SQL and its core features, including:
 
-- What is SQL?
-- Why use SQL?
-- Basic SQL query syntax
-- SQL data types
-- SQL functions
-- Joining tables
-- Subqueries
-- Indexes
+## Basics of SQL
 
- 
+SQL can be divided into four categories, which are Data Definition Language (DDL), Data Manipulation Language (DML), Data Control Language (DCL), and Transaction Control Language (TCL).
 
-## What is SQL?
+### Data Definition Language (DDL)
 
-SQL is a domain-specific language used to manage and manipulate relational databases. It was first developed by IBM in the 1970s and has since become the standard language used in most relational database management systems (RDBMS), including Oracle, MySQL, and PostgreSQL.
+DDL helps to define the structure of the database by creating and modifying the database objects such as tables, indexes, views, and procedures. The following are some of the essential commands of DDL.
 
-## Why use SQL?
+#### CREATE
 
-SQL has become the standard language for querying and managing large data sets because of its simplicity, efficiency, and flexibility. It allows users to retrieve data from one or more tables, update or delete records, and insert new data. Additionally, SQL is easy to learn, with commands that are simple and straightforward.
+The CREATE command is used to create a new object in the database. For example, to create a new table named `Employees` with two columns `EmployeeID` and `Name`, use the following command.
 
-## Basic SQL Query Syntax
-
-Let's start by looking at the basic structure of an SQL query.
-
-```sql
-SELECT column1, column2, …
-FROM table_name
-WHERE condition;
+```
+CREATE TABLE Employees (EmployeeID int, Name varchar(255));
 ```
 
-The `SELECT` statement is used to retrieve data from one or more tables. The columns you want to retrieve are listed after the `SELECT` keyword. You can also use the `*` wildcard to select all columns.
+#### ALTER
 
-The `FROM` statement specifies the table or tables from which you want to retrieve data.
+The ALTER command is used to modify an existing object in the database. For example, to add a new column named `Salary` to the `Employees` table, use the following command.
 
-The `WHERE` statement is used to filter the data. You can use various operators such as `=`, `<`, `>`, `<>`, `LIKE` and `BETWEEN` to create a condition.
-
-Here is an example of a basic SQL query:
-
-```sql
-SELECT *
-FROM employees
-WHERE salary > 50000;
+```
+ALTER TABLE Employees ADD Salary decimal(10,2);
 ```
 
-This query returns all columns of the `employees` table where the `salary` is greater than 50000.
+#### DROP
 
-## SQL Data Types
+The DROP command is used to delete an existing object in the database. For example, to delete the `Salary` column from the `Employees` table, use the following command.
 
-SQL supports various data types to store different kinds of data. Some common data types are:
-
-- `INTEGER` – whole numbers
-- `DECIMAL` – decimal numbers
-- `CHAR` – fixed-length strings
-- `VARCHAR` – variable-length strings
-- `BOOLEAN` – true/false values
-- `DATE` – date values
-- `TIME` – time values
-
-The specific data types supported may vary depending on the database management system being used.
-
-## SQL Functions
-
-Functions are used to perform calculations on data or modify the format of a column value. Some common SQL functions are:
-
-- `COUNT()` – counts the number of rows
-- `MAX()` – returns the maximum value in a column
-- `MIN()` – returns the minimum value in a column
-- `AVG()` – returns the average of a column
-- `SUM()` – returns the sum of values in a column
-
-Here is an example of using the `COUNT` function to count the number of employees:
-
-```sql
-SELECT COUNT(*)
-FROM employees;
+```
+ALTER TABLE Employees DROP COLUMN Salary;
 ```
 
-This statement returns the total number of rows in the `employees` table.
+### Data Manipulation Language (DML)
 
-## Joining Tables
+DML helps to manipulate the data stored in the database by inserting, updating, and deleting records from the tables. The following are some of the essential commands of DML.
 
-In relational databases, data is often stored in multiple tables. To retrieve data from multiple tables in SQL, you need to use a join. A join combines rows from two or more tables based on a related column between them.
+#### INSERT
 
-The most common types of joins in SQL are:
+The INSERT command is used to insert new records into a table. For example, to insert a new record with values `1` and `John` into the `Employees` table, use the following command.
 
-- INNER JOIN – returns only the rows where there is a match between the joined tables
-- LEFT JOIN – returns all the rows from the left table and the matched rows from the right table
-- RIGHT JOIN – returns all the rows from the right table and the matched rows from the left table
-- FULL OUTER JOIN – returns all the rows from both tables, with NULL values for non-matching rows
-
-Here is an example of an inner join between the `employees` and `departments` tables:
-
-```sql
-SELECT employees.name, departments.department_name
-FROM employees
-INNER JOIN departments
-ON employees.department_id = departments.department_id;
+```
+INSERT INTO Employees (EmployeeID, Name) VALUES (1, 'John');
 ```
 
-This statement returns the name of each employee and their corresponding department name.
+#### UPDATE
 
-## Subqueries
+The UPDATE command is used to update existing records in a table. For example, to update the `Name` of the record with `EmployeeID=1` to `Jack`, use the following command.
 
-A subquery is a query that is contained within another query. It is used to retrieve data needed for the main query. A subquery is enclosed in parentheses and can be used in the `FROM`, `WHERE`, or `SELECT` clauses.
-
-Here is an example of a subquery in the `WHERE` clause that returns all employees who work in the same department as John Smith:
-
-```sql
-SELECT name
-FROM employees
-WHERE department_id = (
-  SELECT department_id
-  FROM employees
-  WHERE name = 'John Smith'
-);
+```
+UPDATE Employees SET Name = 'Jack' WHERE EmployeeID = 1;
 ```
 
-This statement returns the names of all employees who work in the same department as John Smith.
+#### DELETE
 
-## Indexes
+The DELETE command is used to delete existing records from a table. For example, to delete the record with `EmployeeID=1` from the `Employees` table, use the following command.
 
-Indexes are used to speed up database queries by providing a quick way to look up data. They are created on columns that are frequently used in query conditions or join clauses.
-
-An index is similar to the index of a book – it provides a way to quickly locate specific information without having to read the entire book.
-
-Here is an example of creating an index on the `department_id` column in the `employees` table:
-
-```sql
-CREATE INDEX idx_department_id
-ON employees (department_id);
+```
+DELETE FROM Employees WHERE EmployeeID = 1;
 ```
 
-This statement creates an index named `idx_department_id` on the `department_id` column in the `employees` table.
+### Data Control Language (DCL)
+
+DCL helps to control the access and permissions of database users. The following are some of the essential commands of DCL.
+
+#### GRANT
+
+The GRANT command is used to grant access permissions to database users. For example, to grant `SELECT` and `INSERT` permissions to a user named `John` on the `Employees` table, use the following command.
+
+```
+GRANT SELECT, INSERT ON Employees TO John;
+```
+
+#### REVOKE
+
+The REVOKE command is used to revoke access permissions from database users. For example, to revoke `SELECT` and `INSERT` permissions from a user named `John` on the `Employees` table, use the following command.
+
+```
+REVOKE SELECT, INSERT ON Employees FROM John;
+```
+
+### Transaction Control Language (TCL)
+
+TCL helps to manage transactions in the database by committing or rolling back the changes made by DML commands. The following are some of the essential commands of TCL.
+
+#### COMMIT
+
+The COMMIT command is used to commit the changes made by DML commands to the database. For example, to commit the changes made by the previous `INSERT` command, use the following command.
+
+```
+COMMIT;
+```
+
+#### ROLLBACK
+
+The ROLLBACK command is used to undo the changes made by DML commands in a transaction. For example, to rollback the changes made by the previous `INSERT` command, use the following command.
+
+```
+ROLLBACK;
+```
+
+
+## Usage of SQL in Data Engineering
+
+SQL is widely used in data engineering due to its capability to manage and manipulate large data sets in RDBMS. The following are some of the use cases of SQL in data engineering.
+
+### Data Warehousing
+
+SQL is used to manage and manipulate data in data warehouse systems such as Snowflake, Amazon Redshift, and Google BigQuery. SQL provides a simple and efficient way to extract and load data from various data sources and transform them into meaningful insights.
+
+### Business Intelligence
+
+SQL is used in business intelligence tools such as Tableau, Power BI, and Looker to create reports, dashboards, and visualizations from the data stored in RDBMS. SQL provides a flexible and powerful way to aggregate, filter, and pivot data to generate business insights.
+
+### Data Integration
+
+SQL is used to integrate data from different sources such as databases, files, and APIs. SQL provides a standardized way to join, merge, and transform data from various sources into a unified format.
+
+### Data Visualization
+
+SQL is used in data visualization libraries such as Matplotlib, Seaborn, and Plotly to create charts, graphs, and plots from the data stored in RDBMS. SQL provides a flexible and expressive way to aggregate and filter data before visualizing it.
+
 
 ## Conclusion
 
-SQL is a powerful language used to manage and manipulate data in relational databases. As a data engineer, it is essential to have a strong understanding of SQL fundamentals to work efficiently with databases. In this article, we covered the basics of SQL and its core features, including basic query syntax, data types, functions, joining tables, subqueries, and indexes.
+SQL is an essential tool for data engineering due to its simplicity, versatility, and scalability. SQL provides a standardized way to manage and manipulate data in RDBMS, which makes it easy to integrate with other tools and systems. In this blog post, we explored the fundamentals of SQL and its usage in data engineering.
 
-Category: Database
+**Category: Database**
