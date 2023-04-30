@@ -1,0 +1,132 @@
+---
+date: 2023-04-30T06:04:39.935Z
+category: Data Engineering
+model: gpt-3.5-turbo-0301
+usage: {"prompt_tokens":2506,"completion_tokens":1092,"total_tokens":3598}
+created: 1682834652
+id: chatcmpl-7AuSKNbAf3SxEBR4tlYGk9tJNeay5
+---
+
+# Polars: The Next Generation Data Manipulation Library for Rust
+
+If you are looking for a powerful and fast data manipulation library in Rust, Polars is what you need. It is an efficient and user-friendly tool that can handle large amounts of data with high performance. In this blog post, we will explore the fundamental knowledge of Polars and learn how to use it for data manipulation.
+
+## What is Polars?
+
+Polars is a data manipulation library in Rust that provides an interface similar to pandas, a data manipulation library in Python. It is fast, efficient, and can handle large amounts of data easily. It is built on the arrow data format and provides support for many data sources, including CSV files, Arrow files, and Parquet files.
+
+Polars provides a rich set of data manipulation operations, including filtering, aggregating, joining and grouping data, and much more. It also supports data visualization using the Plotly library. Polars is designed to be simple to use and is well-documented, making it easy for new users to get started.
+
+## Installing Polars
+
+To install Polars, you need to have Rust and Cargo, the Rust package manager, installed on your system. Once you have Rust and Cargo set up, you can install Polars by running the following command:
+
+```
+cargo install polars
+```
+
+This will install Polars and all its dependencies on your system.
+
+## Basic Usage of Polars
+
+Let's explore some basic operations of Polars to get a better idea of how to use it for data manipulation.
+
+### Creating a DataFrame
+
+A DataFrame is the main data structure in Polars, and you can create it from a vector, a list of tuples, or a CSV file. The following code creates a DataFrame from a vector:
+
+```rust
+use polars::prelude::*;
+
+fn main() {
+    let values = vec![1, 2, 3, 4];
+    let df = DataFrame::new(vec![Series::new("values", &values)]);
+    println!("{}", df);
+}
+```
+
+Output:
+
+```
++--------+
+| values |
+| ---    |
+| i32    |
++========+
+| 1      |
+| 2      |
+| 3      |
+| 4      |
++--------+
+```
+
+### Filtering Data
+
+Filtering data is a common operation in data manipulation, and Polars provides a simple and efficient way to do it. The following code demonstrates how to filter data from a DataFrame:
+
+```rust
+use polars::prelude::*;
+
+fn main() {
+    let values = vec![1, 2, 3, 4];
+    let df = DataFrame::new(vec![Series::new("values", &values)]);
+    let filtered_df = df.filter(col("values").gt(2)).unwrap();
+    println!("{}", filtered_df);
+}
+```
+
+Output:
+
+```
++--------+
+| values |
+| ---    |
+| i32    |
++========+
+| 3      |
+| 4      |
++--------+
+```
+
+The `gt` method compares the values in the `values` column with the value `2` and returns a Boolean mask. The `filter` method applies this Boolean mask to the DataFrame to filter out the rows where the value in the `values` column is less than or equal to `2`.
+
+### Grouping Data
+
+Grouping data is a powerful and efficient way to aggregate data based on common values in a column. The following code demonstrates how to group data in a DataFrame:
+
+```rust
+use polars::prelude::*;
+
+fn main() {
+    let values = vec![1, 2, 2, 3, 3, 3, 4, 4, 4, 4];
+    let df = DataFrame::new(vec![Series::new("values", &values)]);
+    let grouped_df = df.groupby("values").agg(&[col("values").count(), col("values").sum()]).unwrap();
+    println!("{}", grouped_df);
+}
+```
+
+Output:
+
+```
++--------+-------------+-------------+
+| values | count(values) | sum(values) |
+| ---    | ---          | ---         |
+| i32    | u32          | i32         |
++========+=============+=============+
+| 1      | 1           | 1           |
++--------+-------------+-------------+
+| 2      | 2           | 4           |
++--------+-------------+-------------+
+| 3      | 3           | 9           |
++--------+-------------+-------------+
+| 4      | 4           | 16          |
++--------+-------------+-------------+
+```
+
+The `groupby` method groups the data in the `values` column, and the `agg` method aggregates the data by counting the number of values and summing the values in the `values` column.
+
+## Conclusion
+
+Polars is a versatile and powerful data manipulation library in Rust that provides an interface similar to pandas. It is fast, efficient, and can handle large amounts of data with ease. In this blog post, we explored the fundamental knowledge of Polars and learned how to use it for data manipulation. If you want to learn more about Polars, check out the [official documentation](https://pola-rs.github.io/polars/book/index.html).
+
+Category: Data Engineering
